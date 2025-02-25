@@ -12,10 +12,12 @@
   <p id="version"><b>Version:</b> </p>
   <p id="isInClient"><b>isInClient:</b> </p>
   <p id="accessToken"><b>AccessToken:</b> </p>
+
   <img id="pictureUrl">
   <p id="userId"><b>userId:</b> </p>
   <p id="displayName"><b>displayName:</b> </p>
   <p id="statusMessage"><b>statusMessage:</b> </p>
+
   <p id="decodedIDToken"><b>email:</b> </p>
   <p id="type"><b>type:</b> </p>
   <p id="viewType"><b>viewType:</b> </p>
@@ -72,7 +74,12 @@
     }
 
     async function getUserProfile() {
+      if (!liff.isLoggedIn()) {
+        liff.login(); // ถ้ายังไม่ล็อกอิน ให้ล็อกอินก่อน
+        return;
+    }
       const profile = await liff.getProfile()
+
       document.getElementById("pictureUrl").src = profile.pictureUrl
       document.getElementById("userId").append(profile.userId)
       document.getElementById("statusMessage").append(profile.statusMessage)
@@ -97,7 +104,7 @@
 
   
     async function main() {
-      await liff.init({ liffId: "2006960125-J9MlRMn" })
+      await liff.init({ liffId: "2006960125-J9MlRMn7" })
       getEnvironment()
       getUserProfile()
       // getContext()
